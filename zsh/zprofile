@@ -1,0 +1,21 @@
+
+# Setting Brew
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# Setting PATH 
+PATH="/Library/Frameworks/Python.framework/Versions/3.12/bin:${PATH}"
+PATH="/Applications/Visual Studio Code.app/Contents/Resources/app/bin:${PATH}"
+PATH="$HOME/.local/bin:$HOME/bin:/sbin:/usr/sbin:${PATH}"
+export PATH
+
+# Setting MANPATH
+export MANPATH="$HOME/.etc/man:$(manpath)"
+
+# Proxy
+#export http_proxy='http://127.0.0.1:3128'
+#export https_proxy='socks5://127.0.0.1:1080'
+#export no_proxy='localhost,127.0.0.0/8,192.168.0.0/16,10.0.0.0/8'
+#export HTTP_PROXY=$http_proxy
+#export HTTPS_PROXY=$https_proxy
+#export NO_PROXY=$no_proxy
+

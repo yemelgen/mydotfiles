@@ -1,0 +1,60 @@
+#!/bin/bash
+
+# user etc
+export ETCDIR="$HOME/.etc"
+
+# themes
+export QT_STYLE_OVERRIDE=gtk2
+#export QT_STYLE_OVERRIDE=GTK+
+export QT_QPA_PLATFORMTHEME=gtk2
+export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
+export GTK_OVERLAY_SCROLLING=0
+
+# IME
+export XMODIFIERS=@im=fcitx
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+
+# antialising
+export QT_XFT=1
+export GDK_USE_XFT=1
+
+# spice
+export SPICE_NOGRAP=1
+
+# xdg directories
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_DESKTOP_DIR="$HOME/Desktop"
+export XDG_DOWNLOAD_DIR="$HOME/media/download"
+export XDG_DOCUMENTS_DIR="$HOME/doc"
+export XDG_TEMPLATES_DIR="$HOME/doc/templates"
+export XDG_PUBLICSHARE_DIR="$HOME/media/public"
+export XDG_MUSIC_DIR="$HOME/media/music"
+export XDG_PICTURES_DIR="$HOME/media/pictures"
+export XDG_VIDEOS_DIR="$HOME/media/videos"
+
+# Start IME
+[ -x /usr/bin/fcitx ] && (fcitx &)
+
+# Reset layout
+[ -x /usr/bin/setxkbmap ] && setxkbmap -layout us
+
+# Set keys
+[ -f $ETCDIR/x11/Xmodmap ] && xmodmap "$ETCDIR/x11/Xmodmap"
+
+# left handed mouse
+xmodmap -e "pointer = 3 2 1"
+
+# Set resources
+[ -f $ETCDIR/x11/Xresources ] && xrdb -merge "$ETCDIR/x11/Xresources"
+
+# Start GNOME Keyring
+eval $(/usr/bin/gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh)
+
+# Start i3
+if [ -z "$DESKTOP_SESSION" -a -x /usr/bin/ck-launch-session ]; then
+    exec ck-launch-session dbus-launch --exit-with-session i3
+else
+    exec i3
+fi

@@ -1,0 +1,961 @@
+/**********************************************/
+/* zendark gtk3 theme                         */
+/* Copyright (c) 2020-2021 yemelgen           */
+/**********************************************/
+
+/**************** Colors **************** {{{ */
+@define-color hightlight_color #cc9933;
+@define-color link_color #cc9933;
+@define-color visited_link_color #775533;
+
+@define-color fg_normal #7f7f7f;
+@define-color bg_normal #444444;
+@define-color text_normal #dddddd;
+@define-color base_normal #333333;
+
+@define-color fg_active #7f7f7f;
+@define-color bg_active #555555;
+@define-color text_active #dddddd;
+@define-color base_active #555555;
+
+@define-color fg_selected #7f7f7f;
+@define-color bg_selected #555555;
+@define-color base_selected #555555;
+@define-color text_selected #dddddd;
+
+@define-color fg_prelight #111111;
+@define-color bg_prelight @hightlight_color;
+@define-color base_prelight @hightlight_color;
+@define-color text_prelight #111111;
+
+@define-color fg_disabled #5f5f5f;
+@define-color bg_disabled #444444;
+@define-color text_disabled #777777;
+@define-color base_disabled #3e3e3e;
+
+@define-color bg_failback #111111;
+@define-color fg_failback @hightlight_color;
+@define-color base_failback #996633;
+@define-color text_failback @hightlight_color;
+
+/* hardcoded colors */
+@define-color theme_base_color @base_normal;
+@define-color theme_text_color @text_normal;
+@define-color theme_fg_color @fg_normal;
+@define-color theme_bg_color @bg_normal;
+@define-color theme_selected_fg_color @fg_selected;
+@define-color theme_selected_bg_color @bg_selected;
+@define-color theme_tooltip_bg_color @base_normal;
+@define-color theme_tooltip_fg_color @text_normal;
+/* }}} ****************************************/
+
+/**************** General **************** {{{ */
+* {
+    padding: 0;
+    -GtkTextView-error-underline-color: #cc0000;
+    -GtkToolButton-icon-spacing: 4;
+    -GtkToolItemGroup-expander-size: 11;
+    -GtkScrollbar-has-forward-stepper: true;
+    -GtkScrollbar-has-backward-stepper: true;
+    -GtkScrollbar-has-secondary-forward-stepper: false;
+    -GtkScrollbar-has-secondary-backward-stepper: false;
+    -GtkWidget-text-handle-width: 20;
+    -GtkWidget-text-handle-height: 24;
+    -GtkDialog-button-spacing: 4;
+    -GtkDialog-action-area-border: 0;
+    outline-style: dashed;
+    outline-offset: -3px;
+    outline-width: 1px;
+    outline-color: @text_normal;
+    -gtk-outline-radius: 2px;
+
+}
+
+.background {
+    color: @text_normal;
+    background-color: @bg_normal;
+}
+
+*:selected {
+    color: @text_selected;
+    border-color: @fg_selected;
+    background-color: @fg_selected;
+}
+
+*:active {
+    color: @text_active;
+    border-color: @fg_active;
+    background-color: @bg_active;
+}
+
+*:hover {
+    color: @text_prelight;
+    border-color: @fg_prelight;
+    background-color: @bg_prelight;
+}
+
+*:disabled {
+    color: @text_disabled;
+    border-color: @fg_disabled;
+    -gtk-icon-effect: dim;
+}
+
+*:link { 
+    text-decoration: underline;
+    color: @link_color; 
+}
+*:link:visited { color: @visited_link_color; }
+/* }}} ****************************************/
+
+/**************** Failback **************** {{{ */
+.gtkstyle-fallback {
+    color: @fg_failback;
+    background-color: @bg_failback;
+}
+
+.gtkstyle-fallback:hover {
+    color: @bg_failback;
+    background-color: @fg_failback;
+}
+
+.gtkstyle-fallback:checked {
+    color: @bg_failback;
+    background-color: @fg_failback;
+}
+
+.gtkstyle-fallback:focus {
+    color: @bg_failback;
+    background-color: @fg_failback;
+}
+
+.gtkstyle-fallback:disabled {
+    color: @base_failback;
+    background-color: @bg_failback;
+}
+/* }}} ****************************************/
+
+/**************** Frame **************** {{{ */
+/*frame > border, .frame {*/
+frame, .frame {
+    padding: 0;
+    color: @text_normal;
+    border: 1px solid @fg_normal;
+    border-radius: 3px;
+    background-color: @bg_normal;
+}
+/* }}} ****************************************/
+
+/**************** Text **************** {{{ */
+text {
+    color: @text_normal;
+    border: 1px solid @fg_normal;
+    background-color: @base_normal;
+}
+
+text:focus {
+    border-color: @bg_prelight;
+}
+
+selection {
+    color: @text_prelight;
+    background-color: @bg_prelight;
+}
+
+label selection {
+    color: @text_prelight;
+    background-color: @bg_prelight;
+}
+
+textview {
+    color: @text_normal;
+    background-color: @base_normal;
+}
+
+textview selection {
+    color: @text_prelight;
+    background-color: @bg_prelight;
+}
+
+/* }}} ****************************************/
+
+/**************** Entry **************** {{{ */
+entry {
+    padding: 4px;
+    color: @text_normal;
+    border: 1px solid @fg_normal;
+    background-color: @base_normal;
+}
+
+entry:focus { border-color: @bg_prelight; }
+
+entry:disabled {
+    color: @text_disabled;
+    border-color: @fg_disabled;
+    background-color: @base_disabled;
+}
+/* }}} ****************************************/
+
+/**************** Button **************** {{{ */
+button {
+    padding: 5px;
+    color: @text_normal;
+    border: 1px solid @fg_normal;
+    border-radius: 3px;
+    background-color: @bg_normal;
+}
+
+button:active, button:checked {
+    color: @text_selected;
+    border-color: @fg_selected;
+    background-color: @bg_selected;
+}
+
+button:hover {
+    color: @text_prelight;
+    border-color: @fg_prelight;
+    background-color: @bg_prelight;
+}
+
+button:disabled { color: @text_disabled; }
+/* }}} ****************************************/
+
+/**************** Check **************** {{{ */
+check {
+    min-width: 15px;
+    min-height: 15px;
+    padding: 0;
+    margin: 5px;
+    color: @text_normal;
+    border: 1px solid @fg_selected;
+	border-radius: 3px;
+    background-color: @base_normal;
+}
+
+checkbutton:hover, check:hover {
+    color: @text_prelight;
+    border-color: @fg_prelight;
+    background-color: @base_prelight;
+}
+
+check:disabled {
+    color: @text_disabled;
+    border-color: @fg_disabled;
+    background-color: @base_disabled;
+}
+
+/* }}} ****************************************/
+
+/**************** Radio **************** {{{ */
+radio {
+    min-width: 15px;
+    min-height: 15px;
+    padding: 0;
+    margin: 5px;
+    color: @text_normal;
+    border: 1px solid @fg_selected;
+	border-radius: 10px;
+    background-color: @base_normal;
+}
+
+radiobutton:hover, radio:hover {
+    color: @text_prelight;
+    border-color: @fg_prelight;
+    background-color: @base_prelight;
+}
+
+radio:disabled {
+    color: @text_disabled;
+    border-color: @fg_disabled;
+    background-color: @base_disabled;
+}
+
+/* }}} ****************************************/
+
+/**************** Scale **************** {{{ */
+scale:hover {
+    color: transparent;
+    border-color: transparent;
+    background-color: transparent;
+}
+
+scale trough {
+    margin: 1px;
+    padding: 1px;
+    border: 1px solid @fg_selected;
+	border-radius: 3px;
+    color: @text_normal;
+    background-color: @base_active;
+}
+
+scale.horizontal trough {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+scale.vertical trough {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+scale slider {
+    color: @text_normal;
+    border: 1px solid @fg_normal;
+    border-radius: 3px;
+    background-color: @bg_normal;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-image: -gtk-icontheme("view-grid-symbolic");
+    background-size: 10px 10px;
+}
+
+scale.horizontal slider {
+    min-width: 29px;
+    min-height: 14px;
+}
+
+scale.vertical slider {
+    min-width: 14px;
+    min-height: 29px;
+}
+
+scale slider:hover {
+    color: @text_prelight;
+    border-color: @fg_prelight;
+    background-color: @bg_prelight;
+}
+
+scale slider:disabled {
+    color: @text_disabled;
+    border-color: @fg_disabled;
+    background-color: @bg_disabled;
+}
+
+scale trough:disabled {
+    color: @text_disabled;
+    border-color: @fg_disabled;
+    background-color: @bg_disabled;
+}
+
+scale marks { color: @fg_normal; }
+
+scale indicator {
+    min-width: 1px;
+    min-height: 5px;
+    background-color: @base_normal;
+}
+/* }}} ****************************************/
+
+/**************** Progressbar **************** {{{ */
+progressbar {
+    color: @text_normal;
+    background-color: @bg_normal;
+}
+
+progressbar text {
+    color: @text_normal;
+    border: none;
+    background-color: @bg_normal;
+}
+
+progressbar trough {
+    padding: 1px;
+    border: 1px solid @fg_selected;
+	border-radius: 3px;
+    color: @text_normal;
+    background-color: @base_active;
+}
+
+progressbar progress {
+    border: 1px solid @fg_active;
+	border-radius: 3px;
+    color: @text_active;
+    background-color: @fg_active;
+}
+
+progressbar.vertical trough { min-width: 20px; }
+progressbar.horizontal trough { min-height: 18px; }
+progressbar.vertical progress { min-width: 16px; }
+progressbar.horizontal progress { min-height: 14px; }
+/* }}} ****************************************/
+
+/**************** Menu **************** {{{ */
+menu {
+    border: 1px solid @fg_normal;
+	border-radius: 3px;
+    color: @text_normal;
+}
+
+menubar {
+    border-bottom: 1px solid @fg_normal;
+}
+
+menu, menuitem { padding: 4px; }
+
+menu:active, menu:hover, menuitem:active, menuitem:hover {
+    color: @text_prelight;
+    background-color: @bg_prelight;
+}
+
+menuitem arrow {
+    min-height: 15px;
+    min-width: 10px;
+    margin-left: 15px;
+    -gtk-icon-source: -gtk-icontheme("media-playback-start-symbolic");
+}
+
+menuitem check, menuitem radio {
+    min-width: 15px;
+    min-height: 15px;
+    -gtk-icon-source: none;
+}
+
+menuitem check:checked, menuitem check:disabled:checked {
+    -gtk-icon-source: -gtk-icontheme("object-select-symbolic");
+}
+
+menuitem radio:checked, menuitem radio:disabled:checked {
+    -gtk-icon-source: -gtk-icontheme("media-record-symbolic");
+}
+/* }}} ****************************************/
+
+/**************** Combobox **************** {{{ */
+combobox menu {
+    border: 1px solid @fg_normal;
+	border-radius: 3px;
+}
+
+combobox arrow {  
+    min-height: 16px;
+    min-width: 16px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-image: -gtk-icontheme("pan-down-symbolic");
+}
+/* }}} ****************************************/
+
+/**************** Expander **************** {{{ */
+
+expander arrow {
+    min-width: 16px;
+    min-height: 16px;
+    color: @text_normal;
+    -gtk-icon-source: -gtk-icontheme("pan-down-symbolic");
+    -gtk-icon-transform: rotate(-90deg);
+}
+
+expander arrow:checked { -gtk-icon-transform: unset; }
+
+expander arrow:hover { color: @text_prelight; }
+
+expander title:hover {
+    color: @fg_prelight;
+    background-color: @bg_prelight;
+}
+
+/* }}} ****************************************/
+
+/**************** Separator **************** {{{ */
+separator.vertical {
+    margin: 0px;
+    padding: 0px;
+    border-left: 1px solid @fg_normal;
+    border-right: 1px solid @fg_normal;
+}
+
+separator.horizontal {
+    margin: 0px;
+    padding: 0px;
+    border-top: 1px solid @fg_normal;
+    border-bottom: 1px solid @fg_normal;
+}
+
+toolbar separator {
+    margin: 5px;
+    margin-top: 7px;
+    margin-bottom: 7px;
+    border-left: 1px solid @fg_normal;
+    border-right: 1px solid @fg_normal;
+}
+
+menu separator {
+    margin: 0px;
+    padding: 0px;
+    border-top: 1px solid @fg_normal;
+    border-bottom: 1px solid @fg_normal;
+}
+/* }}} ****************************************/
+
+/**************** Paned **************** {{{ */
+paned.horizontal separator, paned.vertical separator {
+    min-width: 1px;
+    min-height: 1px;
+    border: 1px dotted @bg_normal;
+    background-image: image(@fg_normal);
+    background-size: 1px 1px;
+}
+paned.horizontal separator:hover, paned.vertical separator:hover {
+    border-color: @bg_prelight;
+}
+
+/* }}} ****************************************/
+
+/**************** Scrollbar **************** {{{ */
+
+scrollbar trough {
+    padding: 1px;
+    min-width: 17px;
+    min-height: 17px;
+    color: @text_normal;
+    border: 1px solid @fg_normal;
+    border-radius: 3px;
+    background-color: @base_active;
+}
+
+scrollbar slider {
+    min-width: 15px;
+    min-height: 15px;
+    color: @text_normal;
+    border: 1px solid @fg_normal;
+    border-radius: 3px;
+    background-color: @bg_normal;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-image: -gtk-icontheme("view-grid-symbolic");
+    background-size: 10px 10px;
+}
+
+scrollbar slider:hover {
+    color: @text_prelight;
+    border-color: @fg_prelight;
+    background-color: @bg_prelight;
+}
+
+scrollbar.vertical slider { min-height: 30px; }
+scrollbar.horizontal slider { min-width: 30px; }
+
+scrollbar.vertical button.up {
+    min-height: 4px;
+    min-width: 7px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-image: -gtk-icontheme("pan-up-symbolic");
+}
+
+scrollbar.vertical button.down {
+    min-height: 4px;
+    min-width: 7px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-image: -gtk-icontheme("pan-down-symbolic");
+}
+
+scrollbar.horizontal button.up {
+    min-height: 7px;
+    min-width: 4px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-image: -gtk-icontheme("pan-end-symbolic-rtl");
+}
+
+scrollbar.horizontal button.down {
+    min-height: 7px;
+    min-width: 4px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-image: -gtk-icontheme("pan-end-symbolic");
+}
+
+/* }}} ****************************************/
+
+/**************** List **************** {{{ */
+list {
+    padding: 4px;
+    border: none;
+    color: @text_normal;
+    background-color: @base_normal;
+}
+
+list row:active {
+    color: @text_selected;
+    background-color: @bg_selected;
+}
+
+list row:hover {
+    color: @text_normal;
+    background-color: @base_normal;
+}
+
+
+list row:focus {
+    color: @text_prelight;
+    background-color: @bg_prelight;
+}
+
+list row checkbutton, list row radiobutton {
+    color: @text_normal;
+    background-color: transparent;
+}
+
+row {
+    padding: 2px;
+    border: none;
+    background-color: @base_normal;
+}
+
+row:selected {
+    color: @text_selected;
+    background-color: @bg_selected;
+}
+/* }}} ****************************************/
+
+/**************** Treeview **************** {{{ */
+treeview {
+    border: none;
+    color: @text_normal;
+    background-color: @base_normal;
+}
+
+treeview selection {
+    color: @text_prelight;
+    border-color: @fg_prelight;
+    background-color: @bg_prelight;
+}
+
+treeview.view:selected {
+    color: @text_selected;
+    border-color: @fg_selected;
+    background-color: @bg_selected;
+}
+
+treeview.view:hover {
+    color: @text_normal;
+    border-color: @fg_normal;
+    background-color: @base_normal;
+}
+
+treeview.view:selected:focus {
+    color: @text_prelight;
+    border-color: @fg_prelight;
+    background-color: @bg_prelight;
+}
+
+treeview.view.progressbar,
+treeview.view.progressbar:selected {
+    color: @text_normal;
+    min-height: 14px;
+    border: 1px solid @fg_active;
+	border-radius: 3px;
+    background-color: @fg_active;
+}
+
+treeview.view.progressbar:focus,
+treeview.view.progressbar:selected:disabled {
+    color: @text_prelight;
+    border-color: @fg_prelgiht;
+    background-color: @fg_prelight;
+}
+
+treeview.view.trough,
+treeview.view.trough:selected {
+    min-height: 18px;
+    color: @text_normal;
+    border: 1px solid @fg_selected;
+	border-radius: 3px;
+    background-color: @base_active;
+}
+
+treeview.view.trough:focus,
+treeview.view.trough:selected:disabled {
+    color: @text_prelight;
+    border-color: @fg_prelgiht;
+    background-color: @base_active;
+}
+
+/* }}} ****************************************/
+
+/**************** Iconview **************** {{{ */
+iconview {
+    color: @text_normal;
+    background-color: @base_normal;
+}
+
+/* }}} ****************************************/
+
+/**************** Toolbar **************** {{{ */
+toolbar {
+    padding: 5px;
+}
+
+toolbar button {
+    color: @text_normal;
+    border: 1px solid @bg_normal;
+    background-color: @bg_normal;
+}
+
+toolbar button:checked, toolbar button:active {
+    color: @text_selected;
+    border-color: @fg_selected;
+    background-color: @bg_selected;
+}
+
+toolbar button:hover {
+    color: @text_prelight;
+    border-color: @bg_prelight;
+    background-color: @bg_prelight;
+}
+
+toolbar button:disabled {
+    color: @text_disabled;
+    border-color: @bg_disabled;
+    background-color: @bg_disabled;
+}
+/* }}} ****************************************/
+
+/**************** Notebook **************** {{{ */
+notebook {
+    padding: 0;
+    border: 1px solid @fg_normal;
+    border-radius: 3px;
+    background-clip: border-box;
+    background-color: @bg_normal;
+}
+
+notebook tab {
+    padding: 5px;
+    color: @fg_normal;
+    border: 1px solid @fg_normal;
+    border-radius: 3px;
+    background-color: @base_normal;
+}
+
+notebook tab:not(:checked):hover,
+notebook tab:not(:checked):hover label {
+    color: @text_prelight;
+    background-color: @bg_prelight;
+}
+
+notebook tab:active, notebook tab:checked {
+    font-weight: bold;
+    color: @text_normal;
+    border: none;
+    background-color: @bg_normal;
+}
+
+notebook tab label {
+    padding: 0 2px;
+    color: @text_normal;
+}
+/* }}} ****************************************/
+
+/**************** Switch **************** {{{ */
+switch, switch:hover {
+    padding: 2px;
+    font-weight: bold;
+    color: @text_normal;
+    border: 1px solid @fg_normal;
+    border-radius: 3px;
+    background-color: @base_normal;
+}
+
+switch:checked {
+   background-color: @base_selected;
+}
+
+switch:disabled {
+    color: @text_disabled;
+    background-color: @bg_disabled;
+}
+
+switch slider {
+    color: @text_normal;
+    border: 1px solid @fg_normal;
+    border-radius: 3px;
+    background-color: @bg_normal;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-image: -gtk-icontheme("view-grid-symbolic");
+    background-size: 10px 10px;
+
+}
+
+switch:hover slider {
+    color: @text_prelight;
+    border-color: @fg_prelight;
+    background-color: @bg_prelight;
+}
+
+switch:disabled slider {
+    color: @text_disabled;
+    border-color: @fg_disabled;
+    background-color: @bg_disabled;
+}
+
+switch slider:checked { background-color: @base_selected; }
+/* }}} ****************************************/
+
+/**************** Popover **************** {{{ */
+popover { padding: 2px; }
+
+popover.background { 
+    border: 1px solid @fg_normal;
+    border-radius: 3px;
+    background-color: @base_normal;
+}
+
+popover modelbutton { padding: 2px; }
+
+popover modelbutton:hover, popover modelbutton:active {
+    color: @text_prelight;
+    background-color: @bg_prelight;
+}
+/* }}} ****************************************/
+
+/**************** Headbar **************** {{{ */
+headerbar {
+    color: @text_normal;
+    background-color: @bg_normal;
+}
+
+headerbar button { 
+    color: @text_normal;
+    border: 1px solid @fg_normal;
+    border-radius: 3px;
+    background-clip: border-box;
+    background-color: @bg_normal;
+
+}
+headerbar button:checked, headerbar button:active { 
+    font-weight: bold;
+    color: @text_selected;
+    border-color: @fg_selected;
+    background-color: @bg_selected;
+}
+
+decoration {
+    padding: 4px;
+    border: 1px solid @fg_normal;
+    border-radius: 4px 4px 0px 0px;
+    background-color: @bg_normal;
+}
+/* }}} ****************************************/
+
+/**************** Spinner **************** {{{ */
+@keyframes spin { to { -gtk-icon-transform: rotate(1turn); } }
+
+spinner {
+    opacity: 0;
+    background: none;
+    -gtk-icon-source: -gtk-icontheme("process-working-symbolic");
+}
+
+spinner:checked {
+    opacity: 1;
+    animation: spin 1s linear infinite;
+}
+
+spinner:checked:disabled { opacity: 0.5; }
+/* }}} ****************************************/
+
+/**************** Tooltip **************** {{{ */
+tooltip {
+    padding: 1px;
+    border-radius: 3px;
+    box-shadow: none;
+    text-shadow: 0 1px black;
+}
+
+tooltip.background {
+    border: 1px solid @fg_normal;
+    background-color: @base_normal;
+    background-clip: padding-box;
+}
+/* }}} ****************************************/
+
+/**************** Rubberband **************** {{{ */
+rubberband {
+    border: 1px solid @bg_prelight;
+    background-color: transparent;
+}
+/* }}} ****************************************/
+
+/**************** Calendar **************** {{{ */
+calendar {
+    padding: 2px;
+    color: @text_normal;
+    background-color: @base_normal;
+}
+
+calendar:selected {
+    color: @text_selected;
+    background-color: @bg_selected;
+}
+
+calendar:hover {
+    color: @text_prelight;
+    background-color: @bg_prelight;
+}
+
+calendar:indeterminate {
+    color: @text_disabled;
+}
+/* }}} ****************************************/
+
+/**************** Colorswatch **************** {{{ */
+colorswatch {
+    color: @text_normal;
+    border: 1px solid @fg_normal;
+    border-radius: 3px;
+    background-color: @bg_normal;
+}
+
+colorswatch:hover {
+    color: @text_prelight;
+    border-color: @fg_prelight;
+    background-color: @bg_prelight;
+}
+
+colorswatch:disabled { color: @text_disabled; }
+
+/* }}} ****************************************/
+
+/**************** Nautilus **************** {{{ */
+placessidebar row { min-height: 24px; }
+placessidebar row > revealer { padding: 0 14px; }
+placessidebar row image.sidebar-icon:dir(ltr) { padding-right: 8px; }
+placessidebar row image.sidebar-icon:dir(rtl) { padding-left: 8px; }
+placessidebar row label.sidebar-label:dir(ltr) { padding-right: 2px; }
+placessidebar row label.sidebar-label:dir(rtl) { padding-left: 2px; }
+/* }}} ****************************************/
+
+/**************** LightDM **************** {{{ */
+
+#content_frame {
+    background-color: #111111;
+    border-radius: 0;
+    padding: 0 0 10px 0;
+}
+#buttonbox_frame {
+    background-color: #111111;
+    border-color: #111111;
+}
+
+#panel_window,
+#panel_window #menubar, 
+#panel_window > #menubar {
+  background-color: #111111;
+  border-style: solid;
+  border-width: 0px 0px 0px 0px;
+}
+ 
+#buttonbox_frame button, 
+#buttonbox_frame button:hover,
+#buttonbox_frame button:active, 
+#buttonbox_frame button:checked,
+#buttonbox_frame button:disabled {
+    background-color: #111111;
+    color: #111111;
+    border-color: #111111;
+}
+
+/* }}} ****************************************/
+

@@ -1,0 +1,52 @@
+Create Both
+Expunge Both
+SyncState *
+
+IMAPAccount gmail
+Host imap.gmail.com
+User youraccount@gmail.com
+Pass "yoursupersecurepassword"
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+AuthMechs LOGIN
+Tunnel "tsocks nc imap.gmail.com 993"
+
+IMAPStore gmail-remote
+Account gmail
+
+MaildirStore gmail-local
+Path ~/mail/default/
+Inbox ~/mail/default/Inbox
+
+Channel gmail-all
+Master :gmail-remote:
+Slave :gmail-local:
+Patterns * ![Gmail]* !trash !drafts !chats !sent
+
+Channel gmail-inbox
+Master :gmail-remote:
+Slave :gmail-local:
+Patterns "INBOX"
+
+Channel gmail-sent
+Master :gmail-remote:"[Gmail]/Sent Mail"
+Slave :gmail-local:sent
+
+Channel gmail-chats
+Master :gmail-remote:"[Gmail]/Chats"
+Slave :gmail-local:chats
+
+Channel gmail-drafts
+Master :gmail-remote:"[Gmail]/Drafts"
+Slave :gmail-local:drafts
+
+Channel gmail-trash
+Master :gmail-remote:"[Gmail]/Bin"
+Slave :gmail-local:trash
+
+group gmail
+Channel gmail-all
+Channel gmail-inbox
+Channel gmail-drafts
+Channel gmail-trash
+Channel gmail-chats

@@ -1,0 +1,32 @@
+set imap_user = "youraccount@gmail.com"
+set imap_pass = "yoursupersecuredpassword"
+set imap_check_subscribed = yes
+set imap_delim_chars='/'
+set imap_keepalive = 30
+unset imap_passive
+set timeout = 60
+set mail_check = 60
+
+set folder = imaps://imap.gmail.com
+set spoolfile = =INBOX
+set record = "=[Gmail]/Sent Mail"
+set postponed = "=[Gmail]/Drafts"
+set mbox = "=[Gmail]/All Mail"
+set trash = "=[Gmail]/Bin"
+set copy = no
+
+set sendmail="/usr/bin/tsocks msmtp -C $HOME/.etc/mutt/gmail/smtprc"
+set use_from = yes
+
+set from = "youaccount@gmail.com"
+set realname = "Your Name"
+#set signature="~/.etc/mutt/gmail/signature"
+set editor = vim
+set timeout = 10
+set ssl_starttls = yes
+set ssl_force_tls = yes
+
+mailboxes += "imaps://imap.gmail.com/"
+macro index,pager M 'm Your Name <youraccount@gmail.com><enter>'
+macro compose W 'w =notes<enter>'
+

@@ -1,0 +1,92 @@
+!**************** General **************** {{{ !
+*font: -*-terminus-medium-r-normal-*-12-*-*-*-*-*-*-*
+*faceName: Terminus
+*faceSize: 14
+*foreground: #dddddd
+*background: #444444
+*Foreground: #dddddd
+*Background: #444444
+*borderColor: #777777
+*Text*background: #333333
+*cursorColor: #cc9933
+*pointerColorForeground: #cc9933
+*pointerColorBackground: #cc6600
+*fading: 40
+*fadeColor: #444444
+
+!**************** URxvt **************** {{{ !
+URxvt*title: TERMINAL
+URxvt*termName: rxvt-256color
+URxvt*keysym.C-Return: \012
+URxvt*searchable-scrollback: CM-s
+URxvt*geometry: 120x40
+URxvt*scrollBar: off
+URxvt*urgentOnBell: true
+URxvt*cursorBlink: 1
+URxvt.fading: 0
+URxvt.font: xft:Terminus:pixelsize=14
+URxvt.background: #111111
+URxvt.foreground: #999999
+URxvt.cursorColor: #cc9933
+URxvt.borderColor: #111111
+URxvt.color0: #444444
+URxvt.color1: #993333
+URxvt.color2: #66cc66
+URxvt.color3: #ffcc99
+URxvt.color4: #336699
+URxvt.color5: #cc99cc
+URxvt.color6: #99cccc
+URxvt.color7: #dddddd
+URxvt.color8: #669966
+URxvt.color9: #cc9999
+URxvt.color10: #cccc99
+URxvt.color11: #ffff99
+URxvt.color12: #99ccff
+URxvt.color13: #ff99cc
+URxvt.color14: #99ffff
+URxvt.color15: #ffffff
+
+
+!**************** Xterm **************** {{{ !
+!xterm*termName: xterm-256color
+xterm*title: TERMINAL
+xterm*metaSendsEscape: true
+xterm*numColorRegisters: 256
+xterm*decTerminalID: vt340
+xterm*rightScrollBar: true
+!xterm*fading: 0
+xterm*faceName: Terminus
+xterm*faceSize: 12
+xterm*cursorColor: #cc9933
+xterm*background: #111111
+xterm*foreground: #999999
+xterm*color0: #444444
+xterm*color1: #993333
+xterm*color2: #66cc66
+xterm*color3: #ffcc99
+xterm*color4: #336699
+xterm*color5: #cc99cc
+xterm*color6: #99cccc
+xterm*color7: #dddddd
+xterm*color8: #669966
+xterm*color9: #cc9999
+xterm*color10: #cccc99
+xterm*color11: #ffff99
+xterm*color12: #99ccff
+xterm*color13: #ff99cc
+xterm*color14: #99ffff
+xterm*color15: #ffffff
+
+!**************** Fontforge **************** {{{ !
+Gdraw.Foreground: # #dddddd
+Gdraw.Background: # #444444
+Gdraw.GGadget.Box.BorderBrightest: #404040
+Gdraw.GGadget.Box.BorderBrighter: #606060
+Gdraw.GGadget.Box.BorderDarker: #808080
+Gdraw.GGadget.Box.BorderDarkest: #a0a0a0
+Gdraw.GGadget.Box.DisabledForeground: #e0e0e0
+Gdraw.GGadget.Box.DisabledBackground: #808080
+Gdraw.GGadget.Box.PressedBackground: #707070
+fontforge.CharView.WidthColor: #ffffff
+fontforge.CharView.TransformOriginColor: #ffffff
+fontforge.CharView.ForegroundOutlineColor: #ffffff

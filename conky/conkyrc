@@ -1,0 +1,64 @@
+alignment top_left
+default_color 606060
+default_shade_color black
+own_window yes
+own_window_type panel
+owm_window_class Conky
+owm_window_transparent no
+own_window_argb_visual yes
+own_window_argb_value 100
+#display :0.0
+use_xft yes
+xftfont Terminus:size=10
+background yes
+double_buffer yes
+text_buffer_size 1024
+
+#out_to_x no
+#out_to_console no
+#background no
+#max_text_width 0
+update_interval 3.0
+short_units yes
+if_up_strictness route
+cpu_avg_samples 2
+#override_utf8_locale no
+
+TEXT
+Cpu: ${cpu}% [${execi 7 sensors | grep Core\ 0 | cut -c 16-17}°C] \
+Ram: ${memperc}% [${mem}/${memmax}] \
+${if_existing /sys/class/power_supply/BAT1/uevent}Bat: ${battery_percent BAT1}% [${battery_short}] ${endif}\
+Disk: R${diskio_read}/W${diskio_write} [${hddtemp}°C] \
+/ ${fs_used_perc}% [${fs_used}/${fs_size}] \
+${if_mounted /home}~/ ${fs_used_perc /home}% [${fs_used /home}/${fs_size /home}] ${endif}\
+${if_existing /proc/net/route wlan0}Wlan0 U${upspeed wlan0}/D${downspeed wlan0} ${endif}\
+${if_existing /proc/net/route wlan1}Wlan1 U${upspeed wlan1}/D${downspeed wlan1} ${endif}\
+${if_existing /proc/net/route wlan2}Wlan2 U${upspeed wlan2}/D${downspeed wlan2} ${endif}\
+${if_existing /proc/net/route wlan3}Wlan3 U${upspeed wlan3}/D${downspeed wlan3} ${endif}\
+${if_existing /proc/net/route eth0}Eth0 U${upspeed eth0}/D${downspeed eth0} ${endif}\
+${if_existing /proc/net/route eth1}Eth1 U${upspeed eth1}/D${downspeed eth1} ${endif}\
+${if_existing /proc/net/route eth2}Eth2 U${upspeed eth2}/D${downspeed eth2} ${endif}\
+${if_existing /proc/net/route eth3}Eth3 U${upspeed eth3}/D${downspeed eth3} ${endif}\
+${if_existing /proc/net/route ppp0}Ppp0 U${upspeed ppp0}/D${downspeed ppp0} ${endif}\
+${if_existing /proc/net/route ppp1}Ppp1 U${upspeed ppp1}/D${downspeed ppp1} ${endif}\
+${if_existing /proc/net/route ppp2}Ppp2 U${upspeed ppp2}/D${downspeed ppp2} ${endif}\
+${if_existing /proc/net/route ppp3}Ppp3 U${upspeed ppp3}/D${downspeed ppp3} ${endif}\
+${if_existing /proc/net/route br0}Br0 U${upspeed br0}/D${downspeed br0} ${endif}\
+${if_existing /proc/net/route br1}Br1 U${upspeed br1}/D${downspeed br1} ${endif}\
+${if_existing /proc/net/route br2}Br2 U${upspeed br2}/D${downspeed br2} ${endif}\
+${if_existing /proc/net/route br3}Br3 U${upspeed br3}/D${downspeed br3} ${endif}\
+${if_existing /proc/net/route tun0}Tun0 U${upspeed tun0}/D${downspeed tun0} ${endif}\
+${if_existing /proc/net/route tun1}Tun1 U${upspeed tun1}/D${downspeed tun1} ${endif}\
+${if_existing /proc/net/route tun2}Tun2 U${upspeed tun2}/D${downspeed tun2} ${endif}\
+${if_existing /proc/net/route tun3}Tun3 U${upspeed tun3}/D${downspeed tun3} ${endif}\
+${if_existing /proc/net/route usb0}Usb0 U${upspeed usb0}/D${downspeed usb0} ${endif}\
+${if_existing /proc/net/route usb1}Usb1 U${upspeed usb1}/D${downspeed usb1} ${endif}\
+${if_existing /proc/net/route usb2}Usb2 U${upspeed usb2}/D${downspeed usb2} ${endif}\
+${if_existing /proc/net/route usb3}Usb3 U${upspeed usb3}/D${downspeed usb3} ${endif}\
+| ${time %Y-%m-%d %H:%M:%S} \
+${if_running avconv}R${endif}\
+${if_running ffmpeg}R${endif}\
+${if_running parec}A${endif}\
+${if_running tcpdump}T${endif}\
+${if_running input-events}I${endif}\
+${if_match ${execi 300 apt-get -u -s upgrade | grep upgraded, | cut -d' ' -f1} != 0}U${endif}

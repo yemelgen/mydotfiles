@@ -1,0 +1,257 @@
+# High-Contrast, "Normal Size" Theme
+
+gtk-menu-images = 1
+gtk-button-images = 0
+#gtk-font-name = "Terminus 11"
+
+gtk_color_scheme = "fg_normal:#dddddd;bg_normal:#444444;base_normal:#333333;text_normal:#dddddd"
+gtk_color_scheme = "fg_active:#dddddd;bg_active:#555555;base_active:#555555;text_active:#dddddd"
+gtk_color_scheme = "fg_selected:#dddddd;bg_selected:#555555;base_selected:#555555;text_selected:#dddddd"
+gtk_color_scheme = "fg_prelight:#111111;bg_prelight:#cc9933;base_prelight:#cc9933;text_prelight:#111111"
+gtk_color_scheme = "fg_disabled:#777777;bg_disabled:#444444;base_disabled:#333333;text_disabled:#777777"
+gtk_color_scheme = "cursor_color:#cc9933;secondary_cursor_color:#fcfc00"
+gtk_color_scheme = "link_color:#cc9933;visited_link_color:#775533;prelight_link_color:#111111"
+
+style "default" {
+  #font = "-*-terminus-medium-r-normal-*-12-*-*-*-*-*-*-*"
+  xthickness = 3
+  ythickness = 3
+
+  # GtkScrollBar
+  GtkScrollbar::has-backward-stepper = 1
+  GtkScrollbar::has-forward-stepper = 1
+  GtkScrollbar::min-slider-length = 32
+  #GtkScrollbar::fixed-slider-length = 1
+  GtkScrollbar::slider-width = 18
+  GtkScrollbar::trough-border = 1
+
+  # GtkProgressBar
+  GtkProgressBar::min-horizontal-bar-height = 24
+  GtkProgressBar::min-vertical-bar-width = 24
+  GtkProgressBar::xspacing = 0
+  GtkProgressBar::yspacing = 0
+
+  # GtkTreeView
+  GtkTreeView::vertical-separator = 0
+  GtkTreeView::horizontal-separator = 0
+  GtkTreeView::grid-line-width = 0
+  GtkTreeView::expander-size = 16
+
+  # GtkScale
+  GtkScale::slider-length = 28
+  GtkScale::slider-width = 18
+  GtlScale::value-spacing = 1
+  GtlScale::trough-side-details = 1
+
+  # GtkButton
+  GtkButton::inner-border = { 0, 0, 0, 0 } # inner margin 
+  GtkButton::default-border = { 0, 0, 0, 0 } # outer margin (active)
+  GtkButton::default-outside-border = { 0, 0, 0, 0 } # outer margin (inactive)
+  GtkButton::child-displacement-x = 0
+  GtkButton::child-displacement-y = 0
+
+  # GtkCheckButton
+  GtkCheckButton::indicator-size = 14
+  GtkCheckButton::indicator-spacing = 1
+
+  # GtkCheckMenuItem
+  GtkCheckMenuItem::indicator-size = 14
+
+  # GtkRadioButton
+  GtkRadioButton::indicator-size = 14
+
+  # GtkEntry
+  GtkEntry::cursor_color = @cursor_color
+  GtkEntry::cursor_aspect_ratio = 0.1
+
+  # GtkRange
+  GtkRange::trough_border = 1
+  GtkRange::stepper_spacing = 1
+  GtkRange::slider-width = 18
+  GtkRange::stepper-size = 20
+
+  # GtkComboBox
+  GtkComboBox::arrow-size = 0.5
+
+  # GtkPaned
+  GtkPaned::handle-size = 3
+
+  # GtkTextView
+  GtkTextView::cursor_aspect_ratio = 0.1
+  GtkTextView::cursor_color    = @cursor_color
+
+  # GtkMenuBar
+  GtkMenuBar::internal-padding = 0
+  GtkMenuBar::shadow-type = GTK_SHADOW_NONE
+
+  # GtkMenuItem
+  GtkMenuItem::arrow-scaling = 0.5
+
+  # GtkToolBar
+  GtkToolbar::shadow-type = GTK_SHADOW_NONE
+  GtkToolbar::space-size = 0
+  GtkToolbar::internal-padding = 1
+  GtkToolbar::show-arrow = 0
+
+  # GtkHandleBox
+  GtkHandleBox::shadow-type = GTK_SHADOW_NONE
+
+  # GtkStatusBar
+  GtkStatusbar::shadow-type = GTK_SHADOW_NONE
+ 
+  # GtkSpinButton
+  GtkSpinButton::inner-border   = {1, 1, 1, 1}
+
+  # GtkWidget
+  GtkWidget::focus-line-width = 1
+  GtkWidget::focus-line-pattern = "\2\1"
+  GtkWidget::focus-padding = 0
+  GtkWidget::internal-padding = 0
+  GtkWidget::interior_focus = 1
+  GtkWidget::link-color = @link_color
+  GtkWidget::visited-link-color = @visited_link_color
+
+  # GtkNotebook
+  GtkNotebook::tab-overlap = -2
+  GtkNotebook::tab-curvature = 0
+  #GtkNotebook::has-backward-stepper=0
+  #GtkNotebook::has-forward-stepper=1
+  #GtkNotebook::has-secondary-backward-stepper=1
+  #GtkNotebook::has-secondary-forward-stepper=0
+
+  # EelEditableLabel 
+  EelEditableLabel::cursor_aspect_ratio = 0.1
+  EelEditableLabel::cursor_color    = "#CC0000"
+
+  # Nautilus
+  NautilusIconContainer::frame_text = 1
+
+  # Pidgin
+  GtkIMHtml::hyperlink-color = @link_color
+  GtkIMHtml::hyperlink-visited-color = @visited_link_color
+  GtkIMHtml::hyperlink-prelight-color = @prelight_link_color
+
+  # Evolution
+  GtkHTML::link_color = @link_color
+  GtkHTML::vlink_color = @visited_link_color
+  GtkHTML::cite_color = @base_normal
+
+  # Colors
+  fg[NORMAL]      = @fg_normal
+  bg[NORMAL]      = @bg_normal
+  base[NORMAL]    = @base_normal
+  text[NORMAL]    = @text_normal
+
+  fg[ACTIVE]      = @fg_active
+  bg[ACTIVE]      = @bg_active
+  base[ACTIVE]    = @base_active
+  text[ACTIVE]    = @text_active
+
+  fg[SELECTED]    = @fg_selected
+  bg[SELECTED]    = @bg_selected
+  base[SELECTED]  = @base_selected
+  text[SELECTED]  = @text_selected
+
+  fg[PRELIGHT]    = @fg_prelight
+  bg[PRELIGHT]    = @bg_prelight
+  base[PRELIGHT]  = @base_prelight
+  text[PRELIGHT]  = @text_prelight
+
+  fg[INSENSITIVE]   = @fg_disabled
+  bg[INSENSITIVE]   = @bg_disabled
+  text[INSENSITIVE] = @text_disabled
+  base[INSENSITIVE] = @base_disabled
+
+  engine "industrial"
+  {
+    # Set a hint to disable backward compatibility fallbacks.
+    hint = "use-hints"
+  }
+
+}
+
+style "debug" {
+    text[NORMAL]      = "#000000" # black
+    text[ACTIVE]      = "#FF0000" # pure red
+    text[SELECTED]    = "#FFFF00" # pure yellow
+    text[PRELIGHT]    = "#00FF00" # pure green
+    text[INSENSITIVE] = "#0000FF" # pure blue
+
+    base[NORMAL]      = "#404040" # dark grey
+    base[ACTIVE]      = "#CC0000" # bright red 
+    base[SELECTED]    = "#CCCC00" # bright yellow
+    base[PRELIGHT]    = "#00CC00" # bright green
+    base[INSENSITIVE] = "#8800CC" # bright purple
+
+    fg[NORMAL]        = "#808080" # grey
+    fg[ACTIVE]        = "#880000" # red
+    fg[SELECTED]      = "#888800" # brown
+    fg[PRELIGHT]      = "#008800" # green
+    fg[INSENSITIVE]   = "#440088" # purple
+
+    bg[NORMAL]        = "#C0C0C0" # bright grey
+    bg[ACTIVE]        = "#440000" # dark red
+    bg[SELECTED]      = "#444400" # dark brown
+    bg[PRELIGHT]      = "#004400" # dark green
+    bg[INSENSITIVE]   = "#440044" # dark purple
+}
+
+style "checkbutton" {
+	fg[ACTIVE] = @fg_selected
+	bg[ACTIVE] = @bg_selected
+}
+
+style "togglebutton" {
+	fg[ACTIVE] = @fg_disabled
+	bg[ACTIVE] = @base_active
+}
+
+style "notebook"
+{
+    bg[NORMAL]    = @bg_normal # Tab background.
+    bg[ACTIVE]    = @base_normal # Unfocused tab background.
+}
+
+style "progress" {
+	fg[PRELIGHT] = shade(0.6,@fg_active)
+	bg[PRELIGHT] = shade(0.6,@fg_active)
+}
+
+style "treeview" {
+    #fg[ACTIVE] = @fg_prelight
+    base[SELECTED] = @bg_prelight
+    text[SELECTED] = @text_prelight
+    fg[SELECTED] = @fg_prelight
+    bg[SELECTED] = @fg_prelight
+}
+
+style "text" {
+	base[ACTIVE] = @bg_prelight
+	text[ACTIVE] = @fg_prelight
+	base[SELECTED] = @bg_prelight
+	text[SELECTED] = @fg_prelight
+	base[PRELIGHT] = @bg_normal
+}
+
+style "inactivetext" {
+    engine "mist" { }
+}
+
+### widget <widget_class> style <style_name>
+class "GtkWidget" style "default"
+class "GtkNotebook" style "notebook"
+class "GtkProgressBar" style "progress"
+class "GtkTreeView" style "treeview"
+class "GtkCheckButton"  style "checkbutton"
+class "GtkLabel"  style "text"
+class "GtkEntry"  style "text"
+class "GtkTextView" style "text"
+class "GtkToggleButton"  style "togglebutton"
+
+### widget <widget_set> style <style_name>
+
+### widget_class <widget_class_set> style <style_name>
+widget_class "*.<GtkLabel>" style "inactivetext"
+widget_class "*.<GtkCellLayout>" style "inactivetext"
+widget_class "*.<Combo>" style "inactivetext"
+widget_class "*.<GtkMenuItem>.*" style "inactivetext"

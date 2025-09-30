@@ -1,0 +1,7 @@
+text/plain; view %s; edit=vi %s; compose=vi %s; needsterminal
+text/html; w3m -I %{charset} -T text/html %s; needsterminal
+application/pdf; mupdf %s -; needsterminal
+text/html; w3m -I %{charset} -dump -T text/html %s; copiousoutput
+application/msword; catdoc %s ;copiousoutput
+application/pdf; pdftotext -layout %s -; copiousoutput
+

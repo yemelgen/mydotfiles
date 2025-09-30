@@ -1,0 +1,69 @@
+# vim: filetype=muttrc
+
+# default
+mono bold bold
+mono underline underline
+mono indicator reverse
+mono error bold
+
+# main colors
+color normal color250 color236
+color status color136 color234
+color indicator color234 color136
+color tree brightcolor250 color236
+#color tree yellow color236
+color attachment yellow color235
+color message color250 color236
+color error brightred color236
+color markers color234 color136
+color search color228 color23
+color tilde color250 color236
+color signature brightgreen color236
+color quoted color248 color235
+color quoted1 cyan color235
+color quoted2 blue color235
+color quoted3 yellow color235
+color quoted4 red color235
+color quoted5 brightred color235
+color prompt color250 color236
+
+# index colors
+#color index brightcolor250 color236 ".*"
+#color index_number color248 color235
+#color index_author yellow color236 '.*'
+#color index_subject color250 color236 '.*'
+
+# message colors
+color index color250 color236 ".*"
+#color index brightcolor250 color236 ".*"
+color index brightgreen color236 "~N" # New
+color index brightcolor250 red "~D(!~p|~p)" # Deleted
+color index brightred color236 "~F" # Flagged
+color index brightmagenta color236 "~T" # Tagged
+
+# replies colors
+color index color250 color236 "(~h In-Reply-To:|~h References)" 
+color index brightgreen color236 "~N(~h In-Reply-To:|~h References)" 
+color index brightred color236 "~F(~h In-Reply-To:|~h References)" 
+color index brightcyan color236 "~O(~h In-Reply-To:|~h References)" 
+color index brightcolor250 red "~D(~h In-Reply-To:|~h References)" 
+color index brightmagenta color236 "~T(~h In-Reply-To:|~h References)" 
+
+# thread colors
+color index brightblue color236 "~v" # with no New or Flagged
+color index brightred color236 "~v~(~F)~(!~N)"  # with Flagged but no New
+color index brightgreen color236 "~v~(~N)" # with New
+color index brightmagenta color236 "~v~(~T)" # with Tagged
+
+# header colors
+color header color246 color236 ".*"
+color header color250 color236 "^(date)"
+color header magenta color236 "^(from)"
+color header green color236 "^(subject)"
+color header blue color236 "^(to)"
+color header cyan color236 "^(cc|bcc)"
+
+# contents
+color body brightred color236 "[\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+" # Emails
+color body brightblue color236 "([a-z]+)://[\-\.,/%~_:?&=\#a-zA-Z0-9]+" # URL
+color body green color236 "\`[^\`]*\`" # Text between ` and `

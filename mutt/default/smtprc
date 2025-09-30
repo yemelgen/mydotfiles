@@ -1,0 +1,15 @@
+defaults
+auth on
+tls on
+tls_certcheck off
+proxy_host 127.0.0.1
+proxy_port 1080
+
+# Gmail
+account youraccount
+host smtp.gmail.com
+port 587
+from youraccount@gmail.com
+user youraccount
+password yoursupersecurepassword
+account default: youraccount

@@ -1,0 +1,23 @@
+set mbox_type=Maildir
+set folder = "~/mail/default"
+set mbox = "=Inbox"
+set spoolfile = "=Inbox"
+set record = "=Inbox"
+#set record = "=sent"
+set postponed = "=drafts"
+set trash = "=trash"
+
+set sendmail="/usr/bin/msmtp -C $HOME/.etc/mutt/default/smtprc"
+set use_from = yes
+
+set from = "youraccount@gmail.com"
+set realname = "Your Name"
+set editor = vim
+set timeout = 10
+
+mailboxes += ~/mail/default
+
+macro index,pager M 'm Your Name <youraccount@gmail.com><enter>'
+macro compose W 'w =notes<enter>'
+macro index S "!mbsync -c ~/.etc/mutt/default/mbsyncrc gmail ^M" "Update through mbsync"
+

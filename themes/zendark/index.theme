@@ -1,0 +1,16 @@
+[Desktop Entry]
+Type=X-GNOME-Metatheme
+Name=zendark
+Comment=Minimalistic dark colour theme designed to save your eyesight
+Encoding=UTF-8
+
+[X-GNOME-Metatheme]
+Name=zendark
+Type=X-GNOME-Metatheme
+Comment=Minimalistic dark colour theme designed to save your eyesight
+Encoding=UTF-8
+GtkTheme=zendark
+MetacityTheme=Reverse
+IconTheme=Adwaita
+CursorTheme=Adwaita
+CursorSize=24

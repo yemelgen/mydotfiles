@@ -1,0 +1,299 @@
+# ENVIRONMENT {{{
+
+# Paths
+export ETCDIR="$HOME/.etc"
+export FUSEDIR="$HOME/.mnt"
+export ZDOTDIR="$HOME/.zsh"
+
+# Shell parameters
+export KEYTIMEOUT=20
+export HISTSIZE=100000
+export SAVEHIST=100000
+export HISTFILE="$ZDOTDIR/.zhistory"
+export DIRSTACKSIZE=10
+export HISTCONTROL=ignoredups
+
+# Preferences
+export EDITOR="vim"
+export VISUAL="vim"
+export MANPAGER="less"
+export PAGER="less"
+
+# }}}
+
+# MODULES {{{
+# doc: man zshmodules
+
+fpath=($ETCDIR/zsh/functions $fpath)
+
+autoload -Uz compinit && compinit
+autoload -Uz promptinit && promptinit
+autoload -Uz colors && colors
+autoload -Uz zhint && zhint
+autoload -Uz zrun && zrun
+autoload -Uz run-help 
+zmodload zsh/complist
+
+# }}}
+
+# OPTIONS {{{
+# doc: man zshoptions
+
+setopt APPEND_HISTORY
+unsetopt AUTO_CD
+setopt AUTO_PUSHD
+setopt AUTO_RESUME
+setopt AUTO_LIST
+setopt AUTO_CONTINUE
+setopt EXTENDED_HISTORY
+setopt EXTENDED_GLOB
+setopt COMPLETE_IN_WORD
+setopt GLOB_COMPLETE
+unsetopt MENU_COMPLETE
+unsetopt LIST_AMBIGUOUS
+setopt LIST_PACKED
+setopt LIST_ROWS_FIRST
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_SUBST_PATTERN
+setopt HIST_VERIFY
+setopt PUSHD_IGNORE_DUPS
+setopt PUSHD_SILENT
+setopt PUSHD_MINUS
+setopt SHARE_HISTORY
+setopt INC_APPEND_HISTORY
+unsetopt HASH_DIRS
+# }}}
+
+# PROMPT {{{
+# doc: man zshmisc
+
+
+PROMPT="%(!.%F{red}.%F{yellow})%n%f@%F{blue}%m%f:%F{green}%~%f %(0?.%f.%F{red})%(!.#.$)%f "
+RPROMPT=""
+
+if [[ -n $SCHROOT_CHROOT_NAME ]]; then
+    PROMPT="%F{cyan}($SCHROOT_CHROOT_NAME)%f $PROMPT"
+fi
+# }}}
+
+# ALIASES {{{
+# doc: man zshbuiltins
+
+# Suffixes
+alias -g BG='&> /dev/null &!'
+alias -g NUL='&> /dev/null'
+alias -g L='| less'
+alias -g T='| tail'
+alias -g H='| head'
+alias -g G='| egrep --color'
+alias -g S='| sort'
+alias -g C='| wc -l'
+alias -g X='| xargs'
+alias -g PB='| clip'
+
+# Shortcuts
+alias ls='ls -F -B --color'
+alias du='du -h'
+alias df='df -h'
+alias gdo="pushd $HOME/Documents && ls"
+alias gdl="pushd $HOME/Downloads && ls -lhtr"
+alias gde="pushd $HOME/Desktop && ls"
+alias g="gowalk"
+alias b="cd -"
+alias v='dirs -v'
+alias j='jobs -l'
+alias h='history'
+alias rmdir='rmdir -p'
+alias mkdir='mkdir -p'
+alias sued='sudoedit'
+alias help='run-help'
+alias py='env python3'
+alias python='env python3'
+
+# Edit Configs 
+alias vivim="vi $HOME/.vim/vimrc"
+alias vizsh="vi $HOME/.zshrc"
+alias rezsh="source $HOME/.zshrc" 
+
+# }}} 
+
+# FUNCTIONS {{{
+# doc: man zshbuiltins
+
+# Change directory and list
+function gowalk() {
+    pushd $1 && ls
+}
+
+# Copy standard input to the system clipboard.
+function clip {
+    if command -v wl-copy &> /dev/null; then
+        wl-copy "$@"
+    elif command -v xclip &> /dev/null; then
+        xclip -selection clipboard "$@"
+    elif command -v pbcopy &> /dev/null; then
+        pbcopy "$@"
+    else
+        echo "Warning: Neither wl-copy nor xclip was found. Output will not be copied to the clipboard."
+    fi
+}
+
+# Interrupt freezed completion
+function interruptible-expand-or-complete() {
+    COMPLETION_ACTIVE=1
+
+    # Automatically interrupt completion
+    #( sleep 3; kill -INT $$ ) &!
+
+    zle expand-or-complete
+    COMPLETION_ACTIVE=0
+}
+
+# Replaces a trailing space with '\#'
+function complete-with-menu() {
+    # First, run the standard completion.
+    zle complete-word
+    # If the left buffer ends with a space, replace it with "\#"
+    if [[ "$LBUFFER" == *" " ]]; then
+        LBUFFER="${LBUFFER% }\\#"
+        zle redisplay
+    fi
+    zle complete-word
+}
+
+function TRAPINT() {
+    if [[ $COMPLETION_ACTIVE == 1 ]]; then
+        COMPLETION_ACTIVE=0
+        zle -M "Completion canceled."
+        return 1
+    else
+        return 0
+    fi
+}
+
+# Trap user signals
+function TRAPUSR1() { bg }
+function TRAPUSR2() { disown }
+
+# }}}
+
+# KEYS {{{
+# doc: manp zshbuiltins; man zshzle; man ascii; man terminfo; infocmp )
+
+# Widgets
+zle -N interruptible-expand-or-complete
+zle -N complete-with-menu
+
+# Keybinds
+bindkey -e # emacs style
+bindkey "^R" history-incremental-pattern-search-backward
+bindkey "^P" history-beginning-search-backward
+bindkey "^N" history-beginning-search-forward
+bindkey "^I" interruptible-expand-or-complete
+bindkey "^O" complete-with-menu
+
+# Use the vi navigation keys in the menu completion
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -M menuselect '/' accept-and-infer-next-history
+bindkey -M menuselect ',' accept-and-hold
+bindkey -M menuselect '.' undo
+bindkey -M menuselect ' ' accept-line
+bindkey -M menuselect '^M' .accept-line
+bindkey -M menuselect '^I' complete-word
+
+# }}}
+
+# COMPLETIONS {{{
+# doc: man zshcompsys; man zshcompctl; man zshcompwid; man zshmodules
+
+# Descriptions
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*:descriptions' format "$fg[yellow]%B-- %d --%b"
+zstyle ':completion:*:messages' format '%d'
+zstyle ':completion:*:warnings' format "$fg[red]No matches for:$reset_color %d"
+zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
+zstyle ':completion:*' group-name ''
+
+# Verbose
+zstyle ':completion:*' extra-verbose true
+
+# Sort
+zstyle ':completion:*' file-sort name
+
+# Menu
+zstyle ':completion:*:*:*:*:*' menu select
+
+# Cache
+zstyle ':completion:*' use-cache true
+zstyle ':completion:*' cache-path $ZDOTDIR/cache
+zstyle ":completion:*:commands" rehash true
+
+# Completers
+zstyle ':completion:*' completer _complete _prefix _expand _ignored _approximate
+
+# Directiries at first 
+zstyle ':completion:*' list-dirs-first true
+
+# Colors
+zstyle ':completion:*' list-colors ${(@s.:.)LS_COLORS}
+
+# Ignore internal zsh functions
+zstyle ':completion:*:functions' ignored-patterns '_*'
+
+# Case insensitive
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 
+
+# Kill
+zstyle ':completion:*:kill:*' force-list always
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
+zstyle ':completion:*:*:kill:*:processes' command 'ps -axo pid,user,%cpu,comm'
+
+# Terminal title
+zstyle ':zim:termtitle' hooks 'preexec' 'precmd'
+
+# }}}
+
+# HINTS {{{
+
+# Meta commands
+if typeset -f zrun > /dev/null; then
+    alias l='zrun l'
+    alias ll='zrun ll'
+    alias lr='zrun lr'
+    alias llr='zrun llr'
+    alias f='zrun f'
+    alias x='zrun x'
+    alias c='zrun c'
+    alias e='zrun e'
+    alias o='zrun o'
+    alias s='zrun s'
+    alias mv='zrun mv'
+    alias rm='zrun rm'
+    alias cp='zrun cp'
+    alias cv='zrun cv'
+fi
+
+# Load additional hints from a directory if available.
+if [[ -d "$ETCDIR/zsh/hints" ]]; then
+    for file in $ETCDIR/zsh/hints/*.zsh; do
+        source "$file"
+    done
+fi
+
+# }}}
+
+# HOOKS {{{
+# doc: man zshmisc
+
+# Attach zrun command handler
+#function command_not_found_handler() {
+#    zrun $@
+#    return $?
+#}
+
+# }}}

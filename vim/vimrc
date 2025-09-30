@@ -1,0 +1,331 @@
+" My vim configuration
+
+" SETTINGS {{{
+
+" Make vim behave in a more useful way.
+set nocompatible
+
+" Load a color scheme.
+set background=dark
+colorscheme zendark
+
+" Enable the syntax highlighting.
+syntax on
+
+" Enable the FileType autocommand event triggering.
+filetype indent plugin on
+
+" Change the terminal's title.
+set title
+set titleold=Terminal
+
+" Disable beeping
+set visualbell noerrorbells
+
+" Disable shell commands in the .vimrc and .exrc files
+set secure
+
+" Lookup directories for gs, :find and other commands.
+set path=**
+
+" Print the line number in front of each line.
+set number
+
+" Show the line and column of the cursor position, separeted by a comma.
+set ruler
+
+" Hide buffers instead of closing them.
+set hidden
+
+" Show command in the last line of the screen.
+set showcmd
+
+" Show matching parenthesis.
+set showmatch
+
+" Copy indent from current line when starting a new line.
+"set autoindent
+
+" Copy the structer of the existing lines indent when autoindenting a new line.
+set copyindent
+
+" Preserve as much indent structre as possible
+set preserveindent
+
+" Do smart autoindenting when starting a new line
+set smartindent
+
+" Insert spaces instead of tab 
+set expandtab
+
+" Number of spaces to use for each step " of (auto)indent.
+set shiftwidth=4
+
+" Number of spaces that a <Tab> counts for while performing editing operations,
+" line inserting a <Tab or using <BS>.
+set softtabstop=0
+
+" Round indent to multiple of 'shiftwidth'
+set shiftround
+
+" Number of spaces that a <Tab> in the file counts for.the tab
+set tabstop=4
+
+" Insert blanks accorind to 'shiftwidth', 'tabstop'
+" or 'softtabstop' is used in other places.
+set smarttab
+
+" Enable 'list' mode. Show tabs, spaces and trailing blanks.
+set list
+
+" Strings to use in 'list' mode and for :list command.
+set listchars=tab:>-,extends:>,precedes:<,trail:.,nbsp:.,space:.
+
+" Maximum number of entries that may be stored in the history.
+set history=1100
+
+" Maximun number of changes that can be undone
+set undolevels=1000
+
+" Ignore case in the patterns while searching
+set ignorecase
+
+" Override the 'ignorecase' if the search pattern contains
+set smartcase
+
+" Adjust the case of the match depending on the typed text uppercase characters.
+set infercase
+
+" Highlight matched string while typing a search command.
+set incsearch
+
+" Highlight all the matches.
+set hlsearch
+
+" Disable making a backup before overwriting a file.
+set nobackup
+
+" Disable using a swapfile for the buffer.
+set noswapfile
+
+" Set the character encoding used inside Vim.
+set encoding=utf-8
+
+" Encoding used for the terminal.
+set termencoding=utf-8
+
+" Set the character encoding for the file of this buffer
+set fileencoding=utf-8
+
+" Set a list of encodings considered when starting to edit an existing file.
+set fileencodings=utf-8,utf16-le,utf16-be,cp1251 
+
+" Set the file format for the file of this buffer.
+set fileformat=unix
+
+" Set a list of file formats cosidered when starting to edit an existing file.
+set fileformats=unix,dos,mac
+
+" Specify how keyword completion works when CTRL-N or CTRL-N are used.
+set complete=.,w,b,],k,s
+
+" Specify a function to be used for Insert mode with CTRL-X CTRL-O
+set omnifunc=syntaxcomplete#Complete
+
+" Options to use for completion.
+set completeopt=menuone,menu,longest,preview,noselect,noinsert
+
+" Filenames for the tag command, separated by spaces or commas.
+set tags+=TAGS
+
+" Enable folding
+set foldenable
+
+" Use markers to specify folds.
+set foldmethod=marker
+
+" The start and end marker used when 'foldmethod' is 'marker'.
+set foldmarker={{{,}}}
+
+" Enable the use of the mouse.
+set mouse=a
+
+" Enable or disable Past mode.
+set pastetoggle=<F12>
+
+" Use the register '+' to copy/paste from/to the X11 clibboard
+set clipboard=unnamed,unnamedplus
+
+" The time in milliseconds that is waited for a key code.
+" or mapped key sequence to complete.
+set timeoutlen=500 ttimeoutlen=-1
+
+" Check the number of lines for set of commands.
+set modeline modelines=5
+
+" Enhance the command-line  completion.
+set wildmenu
+
+" Ignore sort of file patterns while expanding wildcards.
+set wildignore=*.swp,*.bak,*.pyc,*.class
+
+" Start a widlcard expastion in the command-line.
+set wildcharm=<Tab>
+
+" Specify the completion mode that is used for wildmenu.
+set wildmode=full
+
+" Show the statusline.
+set laststatus=2 
+set statusline=%!StatusLine(winnr())
+
+" Set spell language
+set spell spelllang=en_gb
+
+" }}}
+
+" VARIABLES {{{
+
+" Netrw settings
+let g:netrw_liststyle = 3
+let g:netrw_banner = 0
+let g:netrw_winsize = 25
+let g:netrw_browse_split = 0
+let g:netrw_altv = 1
+
+" }}}
+
+" MAPPINGS {{{
+
+" functional keys
+map <F1>   <Esc>:emenu Utils.<Tab>
+map <F2>   <Esc>:buffers<cr>:b<Space>
+map <F3>   <Esc>:Explore<cr>
+map <F4>   <Esc>:TlistToggle<cr>
+map <F5>   <Esc>:update<bar>:make! all<cr>
+map <F6>   <Esc>:make! run<cr>
+map <F7>   <Esc>:!ctags -R -f TAGS<cr>
+map <F8>   <Esc>:SyntasticCheck<cr>
+
+" simplifications
+nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
+inoremap <C-j> <C-x><C-o>
+inoremap <C-]> <C-x><C-]>
+nnoremap <C-n> :bn<cr>
+nnoremap <C-p> :bp<cr>
+nnoremap <Tab> <C-^>
+nnoremap <Space> <C-d>
+nnoremap <S-Space> <C-u>
+
+" very magic by default
+nmap / /\v
+vmap / /\v
+cmap %s/ %s/\v
+cmap \>s/ \>s/\v
+
+" }}}
+
+" MENU {{{
+
+menu Utils.Encoding.ucs_2le :e ++enc=ucs-2le<cr>
+menu Utils.Encoding.utf_8   :e ++enc=utf-8<cr>
+menu Utils.Encoding.utf_16le :e ++enc=utf-16le<cr>
+menu Utils.Encoding.utf_16be :e ++enc=utf-16be<cr>
+menu Utils.Encoding.koi8_r  :e ++enc=koi8-r<cr>
+menu Utils.Encoding.cp1251  :e ++enc=cp1251<cr>
+menu Utils.Encoding.cp1252  :e ++enc=cp1252<cr>
+menu Utils.Encoding.cp866   :e ++enc=cp866<cr>
+menu Utils.Encoding.cp949   :e ++enc=cp949<cr>
+menu Utils.FileFormat.unix :e ++ff=unix<cr>
+menu Utils.FileFormat.dos :e ++ff=dos<cr>
+menu Utils.FileFormat.mac :e ++ff=mac<cr>
+menu Utils.Syntax.ToggleSyntastic :SyntasticToggleMode<cr>
+menu Utils.Syntax.TogglePySyntax :SyntasticTogglePySyntax<cr>
+
+" }}}
+
+" COMMANDS {{{
+
+command W w !sudo tee % > /dev/null
+
+autocmd BufRead,BufNewFile Vimrc set filetype=vim
+autocmd InsertLeave * pclose
+
+" }}}
+
+" FUNCTIONS {{{
+
+function! BuildBufTab( nr, buffers )
+    let output = ''
+
+    for buf in a:buffers
+        let type = getbufvar( buf, '&buftype' )
+        let hidden = getbufvar( buf, '&bufhidden' )
+
+        if buf == bufnr('%') 
+            let output = output.buf.':'.fnamemodify( bufname(buf), ':t' ).'*'
+        elseif buf == bufnr('#')
+            let output = output.' '.buf.':'.fnamemodify( bufname(buf), ':t' ).'-'
+        elseif type == 'nofile' || type == 'quickfix' || hidden == 'wipe'
+            continue
+        else
+            let output = output.' '.buf.':'.fnamemodify( bufname(buf), ':t' )
+        endif
+    endfor
+
+    return output
+endfunction
+
+function! BufTabLeft( nr )
+    let buffers = []
+    for buf in filter( range( 1, bufnr('%') ), "buflisted(v:val)")
+        if buf == bufnr('%')
+            break
+        endif
+        let buffers += [ buf ]
+    endfor
+    return BuildBufTab( a:nr, buffers )
+endfunction
+
+function! BufTabRight( nr )
+    let buffers = []
+    for buf in filter( range( bufnr('%'), bufnr('$') ), "buflisted(v:val)")
+        if buf == bufnr('%')
+            continue
+        endif
+        let buffers += [ buf ]
+    endfor
+    return BuildBufTab( a:nr, buffers )
+endfunction
+
+function! BufTabCenter( nr )
+    let buffers = [ bufnr('%') ]
+    if winnr() == a:nr
+        return BuildBufTab( a:nr, buffers )
+    else
+        return ''
+    endif
+endfunction
+
+function! BufTabCenterNC( nr )
+    let buffers = [ bufnr('%') ]
+    if winnr() == a:nr
+        return ''
+    else
+        return BuildBufTab( a:nr, buffers )
+    endif
+endfunction
+
+function! StatusLine( nr )
+    let left = '%{BufTabLeft('.a:nr.')} '
+    let center = '%#User1#%{BufTabCenter('.a:nr.' )}%#User2#%{BufTabCenterNC('.a:nr.')}%0*'
+    let right = ' %{BufTabRight('.a:nr.')} '
+    let buftab = left.center.right
+    let filename = '%n:%t'
+    let expander = '%= '
+    let encoding = '%{&fenc?&fenc:&enc}%{&bomb?"-bom":""} '
+    let navbar = '%l,%c%V/%L %P '
+    return buftab.expander.encoding.navbar
+endfunction
+
+" }}}
