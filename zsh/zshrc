@@ -66,6 +66,16 @@ setopt INC_APPEND_HISTORY
 unsetopt HASH_DIRS
 # }}}
 
+# DIRECTORIES {{{
+# doc: man zshbuiltins
+hash -d docs=$HOME/Documents
+hash -d desk=$HOME/Desktop
+hash -d pro=$HOME/Desktop/projects
+hash -d res=$HOME/Desktop/research
+hash -d dl=$HOME/Downloads
+
+# }}}
+
 # PROMPT {{{
 # doc: man zshmisc
 
@@ -115,6 +125,7 @@ alias python='env python3'
 # Edit Configs 
 alias vivim="vi $HOME/.vim/vimrc"
 alias vizsh="vi $HOME/.zshrc"
+alias vissh="vi $HOME/.ssh/config"
 alias rezsh="source $HOME/.zshrc" 
 
 # }}} 
@@ -223,7 +234,7 @@ zstyle ':completion:*' group-name ''
 zstyle ':completion:*' extra-verbose true
 
 # Sort
-zstyle ':completion:*' file-sort name
+zstyle -e ':completion:*' file-sort 'if [[ "${words[CURRENT]}" == *ownload* || "${words[CURRENT]}" == *"~dl"* ]]; then reply=(modification); else reply=(name); fi'
 
 # Menu
 zstyle ':completion:*:*:*:*:*' menu select
@@ -255,6 +266,9 @@ zstyle ':completion:*:*:kill:*:processes' command 'ps -axo pid,user,%cpu,comm'
 
 # Terminal title
 zstyle ':zim:termtitle' hooks 'preexec' 'precmd'
+
+# Disable glob for zrun
+zstyle ':completion:*:zrun:*' noglob true
 
 # }}}
 

@@ -69,7 +69,9 @@ hi String          ctermfg=174
 hi Structure       ctermfg=229 cterm=bold
 hi Tag             ctermfg=181 cterm=bold
 hi Title           ctermfg=255 cterm=bold
-hi Todo            ctermfg=254 cterm=bold
+"hi Todo            ctermfg=254 cterm=bold
+hi Todo ctermbg=NONE ctermfg=245 cterm=none
+"hi Todo ctermbg=237 ctermfg=254 cterm=bold
 hi Typedef         ctermfg=253 cterm=bold
 hi Type            ctermfg=187 cterm=bold
 hi Underlined      ctermfg=188 cterm=underline
@@ -125,3 +127,9 @@ hi link DefinedName       WarningMsg
 hi link LocalVariable     WarningMsg
 hi link Structure         WarningMsg
 hi link Union             WarningMsg
+
+" LSP
+hi LspWarningHighlight ctermbg=NONE ctermfg=NONE cterm=none
+hi LspErrorHighlight ctermbg=NONE ctermfg=NONE cterm=none
+hi LspWarningText ctermbg=NONE ctermfg=242 cterm=italic
+hi LspErrorText ctermbg=NONE ctermfg=242 cterm=italic

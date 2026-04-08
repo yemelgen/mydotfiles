@@ -53,7 +53,7 @@ set copyindent
 set preserveindent
 
 " Do smart autoindenting when starting a new line
-set smartindent
+"set smartindent
 
 " Insert spaces instead of tab 
 set expandtab
@@ -192,6 +192,7 @@ let g:netrw_banner = 0
 let g:netrw_winsize = 25
 let g:netrw_browse_split = 0
 let g:netrw_altv = 1
+let g:lsp_hover_ui = 'preview'
 
 " }}}
 
@@ -327,5 +328,21 @@ function! StatusLine( nr )
     let navbar = '%l,%c%V/%L %P '
     return buftab.expander.encoding.navbar
 endfunction
+
+" }}}
+
+" HOOKS {{{
+
+if executable('pylsp')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pylsp',
+        \ 'cmd': {server_info->['pylsp']},
+        \ 'allowlist': ['python'],
+        \ })
+
+    autocmd FileType python nnoremap <buffer> gd :LspDefinition<cr>
+    autocmd FileType python nnoremap <buffer> gD :LspReferences<cr>
+    autocmd FileType python nnoremap <buffer> K  :LspHover<cr>
+endif
 
 " }}}
