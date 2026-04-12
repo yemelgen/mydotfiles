@@ -62,7 +62,7 @@ set expandtab
 set shiftwidth=4
 
 " Number of spaces that a <Tab> counts for while performing editing operations,
-" line inserting a <Tab or using <BS>.
+" like inserting a <Tab> or using <BS>.
 set softtabstop=0
 
 " Round indent to multiple of 'shiftwidth'
@@ -80,6 +80,9 @@ set list
 
 " Strings to use in 'list' mode and for :list command.
 set listchars=tab:>-,extends:>,precedes:<,trail:.,nbsp:.,space:.
+
+" Maximum amount of memory (in Kbyte) to use for pattern matching.
+set maxmempattern=2000
 
 " Maximum number of entries that may be stored in the history.
 set history=1100
@@ -118,7 +121,7 @@ set termencoding=utf-8
 set fileencoding=utf-8
 
 " Set a list of encodings considered when starting to edit an existing file.
-set fileencodings=utf-8,utf16-le,utf16-be,cp1251 
+set fileencodings=utf-8,utf-16le,utf-16be,cp1251
 
 " Set the file format for the file of this buffer.
 set fileformat=unix
@@ -126,7 +129,7 @@ set fileformat=unix
 " Set a list of file formats cosidered when starting to edit an existing file.
 set fileformats=unix,dos,mac
 
-" Specify how keyword completion works when CTRL-N or CTRL-N are used.
+" Specify how keyword completion works when CTRL-N or CTRL-P are used.
 set complete=.,w,b,],k,s
 
 " Specify a function to be used for Insert mode with CTRL-X CTRL-O
@@ -212,9 +215,10 @@ map <F8>   <Esc>:SyntasticCheck<cr>
 nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
 inoremap <C-j> <C-x><C-o>
 inoremap <C-]> <C-x><C-]>
-nnoremap <C-n> :bn<cr>
-nnoremap <C-p> :bp<cr>
+nnoremap <silent> <C-n> :call ScrollPreview('down')<cr>
+nnoremap <silent> <C-p> :call ScrollPreview('up')<cr>
 nnoremap <Tab> <C-^>
+nnoremap <C-w>m :pclose<bar>cclose<cr>
 nnoremap <Space> <C-d>
 nnoremap <S-Space> <C-u>
 
@@ -256,21 +260,43 @@ autocmd InsertLeave * pclose
 
 " FUNCTIONS {{{
 
-function! BuildBufTab( nr, buffers )
+function! ScrollPreview( dir )
+    for nr in range( 1, winnr('$') )
+        if getwinvar( nr, '&previewwindow' )
+            exe nr.'wincmd w'
+            if a:dir == 'down'
+                exe "normal! \<C-d>"
+            else
+                exe "normal! \<C-u>"
+            endif
+            wincmd p
+            return
+        endif
+    endfor
+endfunction
+
+function! BuildBufTab( buffers )
     let output = ''
 
     for buf in a:buffers
         let type = getbufvar( buf, '&buftype' )
         let hidden = getbufvar( buf, '&bufhidden' )
 
-        if buf == bufnr('%') 
-            let output = output.buf.':'.fnamemodify( bufname(buf), ':t' ).'*'
-        elseif buf == bufnr('#')
-            let output = output.' '.buf.':'.fnamemodify( bufname(buf), ':t' ).'-'
-        elseif type == 'nofile' || type == 'quickfix' || hidden == 'wipe'
+        if type == 'nofile' || type == 'quickfix' || hidden == 'wipe'
             continue
+        endif
+
+        let name = fnamemodify( bufname(buf), ':t' )
+        if name == ''
+            let name = '[No Name]'
+        endif
+
+        if buf == bufnr('%')
+            let output = output.buf.':'.name.'*'
+        elseif buf == bufnr('#')
+            let output = output.' '.buf.':'.name.'-'
         else
-            let output = output.' '.buf.':'.fnamemodify( bufname(buf), ':t' )
+            let output = output.' '.buf.':'.name
         endif
     endfor
 
@@ -279,30 +305,30 @@ endfunction
 
 function! BufTabLeft( nr )
     let buffers = []
-    for buf in filter( range( 1, bufnr('%') ), "buflisted(v:val)")
-        if buf == bufnr('%')
-            break
-        endif
+    for buf in filter( range( 1, bufnr('%') - 1 ), "buflisted(v:val)")
         let buffers += [ buf ]
     endfor
-    return BuildBufTab( a:nr, buffers )
+    if len(buffers) > 4
+        return '< '.BuildBufTab( buffers[-4:] )
+    endif
+    return BuildBufTab( buffers )
 endfunction
 
 function! BufTabRight( nr )
     let buffers = []
-    for buf in filter( range( bufnr('%'), bufnr('$') ), "buflisted(v:val)")
-        if buf == bufnr('%')
-            continue
-        endif
+    for buf in filter( range( bufnr('%') + 1, bufnr('$') ), "buflisted(v:val)")
         let buffers += [ buf ]
     endfor
-    return BuildBufTab( a:nr, buffers )
+    if len(buffers) > 4
+        return BuildBufTab( buffers[:3] ).' >'
+    endif
+    return BuildBufTab( buffers )
 endfunction
 
 function! BufTabCenter( nr )
     let buffers = [ bufnr('%') ]
     if winnr() == a:nr
-        return BuildBufTab( a:nr, buffers )
+        return BuildBufTab( buffers )
     else
         return ''
     endif
@@ -313,26 +339,29 @@ function! BufTabCenterNC( nr )
     if winnr() == a:nr
         return ''
     else
-        return BuildBufTab( a:nr, buffers )
+        return BuildBufTab( buffers )
     endif
 endfunction
 
 function! StatusLine( nr )
     let left = '%{BufTabLeft('.a:nr.')} '
-    let center = '%#User1#%{BufTabCenter('.a:nr.' )}%#User2#%{BufTabCenterNC('.a:nr.')}%0*'
+    let center = '%#User1#%{BufTabCenter('.a:nr.')}%#User2#%{BufTabCenterNC('.a:nr.')}%0*'
     let right = ' %{BufTabRight('.a:nr.')} '
     let buftab = left.center.right
-    let filename = '%n:%t'
     let expander = '%= '
+    let filetype = '%{&ft} '
     let encoding = '%{&fenc?&fenc:&enc}%{&bomb?"-bom":""} '
+    let charcode = '0x%B '
     let navbar = '%l,%c%V/%L %P '
-    return buftab.expander.encoding.navbar
+    return buftab.expander.filetype.encoding.charcode.navbar
 endfunction
 
 " }}}
 
 " HOOKS {{{
 
+" Python LSP support via vim-lsp plugin.
+" Install the server with: pip install python-lsp-server
 if executable('pylsp')
     au User lsp_setup call lsp#register_server({
         \ 'name': 'pylsp',
@@ -340,9 +369,11 @@ if executable('pylsp')
         \ 'allowlist': ['python'],
         \ })
 
+    autocmd FileType python setlocal omnifunc=lsp#complete
     autocmd FileType python nnoremap <buffer> gd :LspDefinition<cr>
-    autocmd FileType python nnoremap <buffer> gD :LspReferences<cr>
+    autocmd FileType python nnoremap <buffer> gD :LspDefinition<cr>
     autocmd FileType python nnoremap <buffer> K  :LspHover<cr>
+    autocmd FileType python nnoremap <buffer> gK :LspReferences<cr>
 endif
 
 " }}}
